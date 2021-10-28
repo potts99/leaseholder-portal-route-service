@@ -10,7 +10,7 @@ All PaaS traffic will go through the route service to filter traffic.
 
 ## Requirements
 
-* Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+- Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 You should log in using the Cloud Foundry CLI
 (https://docs.cloud.service.gov.uk/#setting-up-the-command-line).
@@ -31,7 +31,7 @@ run `cf push --var app-name=my-app`
 
 If you want to add a custom route, add a route definition to the manifest:
 
-``` applications:
+```applications:
   - name: ((app-name))
     routes:
       - route: my-subdomain.my-domain.com
@@ -67,3 +67,13 @@ The path `/_route-service-check` is for checking if you may use the route
 service. If you are, then you will receive `OK`, if you are not you will
 received `Forbidden by ((app-name))`, where `((app-name))` is the value of the
 `APP_NAME` environment variable.
+
+## Leaseholder portal deploy
+
+```shell script
+ALLOWED_IPS="IP_1,IP_2,...,IP_N" \
+ROUTE_SERVICE_APP_NAME="leaseholder-portal-route-service-app" \
+ROUTE_SERVICE_NAME="leaseholder-portal-route-service" \
+PROTECTED_APP_NAME="leaseholder-portal" \
+./deploy.sh
+```
