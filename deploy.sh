@@ -51,6 +51,4 @@ else
     -r "https://${ROUTE_SERVICE_DOMAIN}";
 fi
 
-PROTECTED_APP_HOSTNAME="$(cf curl "/v3/apps/$(cf app "${PROTECTED_APP_NAME}" --guid)/routes" | jq -r --arg APPS_DOMAIN "${APPS_DOMAIN}" '[.resources[] | select(.url | endswith($APPS_DOMAIN))][0].host')"
-
-cf bind-route-service "${APPS_DOMAIN}" "${ROUTE_SERVICE_NAME}" --hostname "${PROTECTED_APP_HOSTNAME}";
+cf bind-route-service building-safety-fund-status.communities.gov.uk leaseholder-portal-route-service --hostname www;
