@@ -68,10 +68,40 @@ service. If you are, then you will receive `OK`, if you are not you will
 received `Forbidden by ((app-name))`, where `((app-name))` is the value of the
 `APP_NAME` environment variable.
 
-## Leaseholder portal deploy
+## Updating the IP Whitelist
+
+### Getting the Current Whitelisted IPs
+
+The currently whitelisted IPs can be retrieved from an environment variable in the **leaseholder-portal-route-service-app** in GDS PaaS. To retrieve them:
+
+1.  Login to CloudFoundry:
+
+        $ cf login
+
+2.  Target the **leaseholder-portal-production** space:
+
+        $ cf target -s leaseholder-portal-production
+
+3.  Get the currently whitelisted IPs from **leaseholder-portal-route-service-app**:
+
+        $ cf env leaseholder-portal-route-service-app | grep ALLOWED_IPS
+
+### Whitelisting a New IP Address
+
+To whitelist a new IP address make sure you are targetting the **leaseholder-portal-production** space then run the following command with all the existing whitelisted IP addresses, and add the new one at the end:
 
 ```shell script
 ALLOWED_IPS="IP_1,IP_2,...,IP_N" \
+ROUTE_SERVICE_APP_NAME="leaseholder-portal-route-service-app" \
+ROUTE_SERVICE_NAME="leaseholder-portal-route-service" \
+PROTECTED_APP_NAME="leaseholder-portal" \
+./deploy.sh
+```
+
+For example:
+
+```shell script
+ALLOWED_IPS="1.2.3.4/32,5.6.7.8/24" \
 ROUTE_SERVICE_APP_NAME="leaseholder-portal-route-service-app" \
 ROUTE_SERVICE_NAME="leaseholder-portal-route-service" \
 PROTECTED_APP_NAME="leaseholder-portal" \
