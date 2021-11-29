@@ -3,7 +3,7 @@
 applications:
   - name: ((app-name))
     instances: 2
-    memory: 256M
+    memory: 1G
 
     buildpacks:
       - nginx_buildpack
